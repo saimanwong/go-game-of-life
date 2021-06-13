@@ -2,6 +2,7 @@ package main
 
 import (
 	"log"
+	"math"
 	"math/rand"
 	"time"
 
@@ -36,11 +37,21 @@ func (g *Game) Draw(screen *ebiten.Image) {
 			g.world.reset()
 		}
 
-		// p: reset world
+		// p: populate world
 		if ebiten.IsKeyPressed(ebiten.KeyP) {
 			log.Print("populating world")
 			g.world.randPopulate()
 		}
+	}
+
+	// update tps, up or down
+	currTPS := int(math.Round(ebiten.CurrentTPS()))
+	if ebiten.IsKeyPressed(ebiten.KeyUp) {
+		ebiten.SetMaxTPS(currTPS + 1)
+	}
+
+	if ebiten.IsKeyPressed(ebiten.KeyDown) && currTPS > 0 {
+		ebiten.SetMaxTPS(currTPS - 1)
 	}
 
 	// draw
@@ -58,10 +69,10 @@ func (g *Game) Update() error {
 	return nil
 }
 
-func initMtx(width, height int) [][]bool {
-	m := make([][]bool, width)
+func initMtx(width, height int) [][]Cell {
+	m := make([][]Cell, width)
 	for i := range m {
-		m[i] = make([]bool, height)
+		m[i] = make([]Cell, height)
 	}
 	return m
 }

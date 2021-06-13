@@ -17,6 +17,7 @@ $ go run main.go world.go
 | -------------- | -------------------------------|
 | CTRL + P       | Randomly populates the world   |
 | CTRL + R       | Resets the world               |
+| UP / DOWN      | Increase or decrease TPS       |
 | H + Left Click | Inserts a [Heavyweight Spaceship](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life#/media/File:Animated_Hwss.gif) |
 
 ## Screenshots
