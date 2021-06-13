@@ -32,7 +32,7 @@ type World struct {
 
 func (w *World) heavyWeightSpaceship(x, y int) {
 	// Check out of bounds
-	if x+6 >= w.width || y+4 >= w.height {
+	if x+6 >= w.width || y+4 >= w.height || x < 0 || y < 0 {
 		log.Print("heavy weight spaceship index out of range")
 		return
 	}
