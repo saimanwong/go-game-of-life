@@ -3,7 +3,8 @@
 name: Build, push and deploy image to Heroku
 on:
   push:
-    - master
+    branches:
+      - master
 jobs:
   Build-Push-Deploy-Image:
     runs-on: ubuntu-latest
