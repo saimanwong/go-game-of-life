@@ -29,19 +29,16 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		g.world.heavyWeightSpaceship(x, y)
 	}
 
-	// ctrl +
-	if ebiten.IsKeyPressed(ebiten.KeyControlLeft) || ebiten.IsKeyPressed(ebiten.KeyControlRight) {
-		// r: reset world
-		if ebiten.IsKeyPressed(ebiten.KeyR) {
-			log.Print("reseting world")
-			g.world.reset()
-		}
+	// r: reset world
+	if ebiten.IsKeyPressed(ebiten.KeyR) {
+		log.Print("reseting world")
+		g.world.reset()
+	}
 
-		// p: populate world
-		if ebiten.IsKeyPressed(ebiten.KeyP) {
-			log.Print("populating world")
-			g.world.randPopulate()
-		}
+	// p: populate world
+	if ebiten.IsKeyPressed(ebiten.KeyP) {
+		log.Print("populating world")
+		g.world.randPopulate()
 	}
 
 	// update tps, up or down
