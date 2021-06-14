@@ -1,13 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
-	"math"
 	"math/rand"
 	"sort"
-
-	"github.com/hajimehoshi/ebiten/v2"
 )
 
 var heatMapClr map[int][4]byte = map[int][4]byte{
@@ -159,14 +155,11 @@ var direction map[string]point = map[string]point{
 	},
 }
 
-func (w *World) update() {
+func (w *World) update() (float64, float64) {
 	next := []point{}
 	currAlive := 0
 	for x := 0; x < w.width; x++ {
 		for y := 0; y < w.height; y++ {
-			if w.mtx[x][y].alive {
-				currAlive++
-			}
 			// Check all direction
 			neigh := []point{}
 			for _, p := range direction {
@@ -199,12 +192,14 @@ func (w *World) update() {
 
 			// Any live cell with two or three live neighbours survives.
 			if w.mtx[x][y].alive == true && (alive == 2 || alive == 3) {
+				currAlive++
 				w.mtx[x][y].age++
 				continue
 			}
 
 			// Any dead cell with three live neighbours becomes a live cell.
 			if w.mtx[x][y].alive == false && alive == 3 {
+				currAlive++
 				w.mtx[x][y].age = 1
 				next = append(next, point{x: x, y: y, alive: true})
 				continue
@@ -218,18 +213,10 @@ func (w *World) update() {
 		}
 	}
 
-	currDead := w.width*w.height - currAlive
-	currAliveRatio := (float64(currAlive) / float64(currAlive+currDead)) * 100
-	ebiten.SetWindowTitle(
-		fmt.Sprintf("tps: %d | gen: %d | alive: %d | dead: %d | alive ratio: %.2f%%",
-			int(math.Round(ebiten.CurrentTPS())),
-			globalTick,
-			currAlive,
-			currDead,
-			currAliveRatio,
-		))
-
 	for _, v := range next {
 		w.mtx[v.x][v.y].alive = v.alive
 	}
+
+	currDead := w.width*w.height - currAlive
+	return float64(currAlive), float64(currDead)
 }

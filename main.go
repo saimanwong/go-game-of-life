@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"math"
 	"math/rand"
@@ -62,7 +63,17 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 
 func (g *Game) Update() error {
 	globalTick++
-	g.world.update()
+	alive, dead := g.world.update()
+	aliveRatio := (alive / (alive + dead)) * 100
+	ebiten.SetWindowTitle(
+		fmt.Sprintf("tps: %d | gen: %d | alive: %d | dead: %d | alive ratio: %.2f%%",
+			int(math.Round(ebiten.CurrentTPS())),
+			globalTick,
+			int(alive),
+			int(dead),
+			aliveRatio,
+		))
+
 	return nil
 }
 
