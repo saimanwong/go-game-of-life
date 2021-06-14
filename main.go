@@ -97,6 +97,7 @@ func main() {
 	ebiten.SetMaxTPS(1)
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Your game's title")
+	g.world.randPopulate()
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
 	}
