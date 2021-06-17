@@ -31,7 +31,7 @@ jobs:
         run: docker push ${{ env.DOCKER_IMAGE }}:${{ steps.get_ref.outputs.REF }}
 
       - name: Push image with latest tag
-        run: docker tag ${{ env.DOCKER_IMAGE }}:${{ steps.get_ref.outputs.REF }} ${{ env.DOCKER_IMAGE }}:latest && git push ${{ env.DOCKER_IMAGE }}:latest
+        run: docker tag ${{ env.DOCKER_IMAGE }}:${{ steps.get_ref.outputs.REF }} ${{ env.DOCKER_IMAGE }}:latest && docker push ${{ env.DOCKER_IMAGE }}:latest
 
   deploy-heroku:
     runs-on: ubuntu-latest
