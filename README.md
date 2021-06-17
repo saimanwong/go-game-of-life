@@ -28,7 +28,7 @@ Open http://localhost in browser.
 #### Remote from Docker Hub
 
 ```
-$ PORT=8080; docker run --pull always -it -p 80:$PORT -e PORT=$PORT saimanwong/go-game-of-life:master
+$ PORT=8080; docker run --pull always -it -p 80:$PORT -e PORT=$PORT saimanwong/go-game-of-life:latest
 ```
 
 #### Local Build and Run `Dockerfile.dockerhub`
