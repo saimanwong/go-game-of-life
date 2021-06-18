@@ -39,7 +39,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	// p: populate world
 	if ebiten.IsKeyPressed(ebiten.KeyP) {
 		log.Print("populating world")
-		g.world.randPopulate()
+		g.world.randPopulate(1337)
 	}
 
 	// update tps, up or down
@@ -97,7 +97,7 @@ func main() {
 	ebiten.SetMaxTPS(1)
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Your game's title")
-	g.world.randPopulate()
+	g.world.randPopulate((WIDTH * HEIGHT) / 2)
 	if err := ebiten.RunGame(g); err != nil {
 		log.Fatal(err)
 	}

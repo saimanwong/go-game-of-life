@@ -54,8 +54,8 @@ func (w *World) heavyWeightSpaceship(x, y int) {
 	}
 }
 
-func (w *World) randPopulate() {
-	for i := 0; i < 1337; i++ {
+func (w *World) randPopulate(p int) {
+	for i := 0; i < p; i++ {
 		x := rand.Intn(w.width)
 		y := rand.Intn(w.height)
 		w.mtx[x][y].alive = true
