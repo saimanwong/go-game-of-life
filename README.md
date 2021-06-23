@@ -5,6 +5,7 @@ An implementation of Conway's Game of Life using Go and Ebiten.
 - [Conway's Game of Life wiki](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
 - [Ebiten - A dead simple 2D game library for Go](https://ebiten.org/)
 - [Heroku Demo](https://go-game-of-life.herokuapp.com/)
+- [GCP Cloud Run Demo](https://gol.saimanwong.com)
 
 ## Key Bindings
 
