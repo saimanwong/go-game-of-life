@@ -10,9 +10,13 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 )
 
-var WIDTH int = 160
-var HEIGHT int = 120
-var globalTick int = 0
+var (
+	WIDTH       int  = 160
+	HEIGHT      int  = 120
+	startTPS    int  = 10
+	globalTick  int  = 0
+	worldBorder bool = false
+)
 
 type Game struct {
 	world  *World
@@ -63,7 +67,7 @@ func (g *Game) Layout(outsideWidth, outsideHeight int) (screenWidth, screenHeigh
 
 func (g *Game) Update() error {
 	globalTick++
-	alive, dead := g.world.update()
+	alive, dead := g.world.update(worldBorder)
 	aliveRatio := (alive / (alive + dead)) * 100
 	ebiten.SetWindowTitle(
 		fmt.Sprintf("tps: %d | gen: %d | alive: %d | dead: %d | alive ratio: %.2f%%",
@@ -94,7 +98,7 @@ func main() {
 		},
 		pixels: make([]byte, WIDTH*HEIGHT*4),
 	}
-	ebiten.SetMaxTPS(1)
+	ebiten.SetMaxTPS(startTPS)
 	ebiten.SetWindowSize(640, 480)
 	ebiten.SetWindowTitle("Your game's title")
 	g.world.randPopulate((WIDTH * HEIGHT) / 2)

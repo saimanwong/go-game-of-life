@@ -155,7 +155,7 @@ var direction map[string]point = map[string]point{
 	},
 }
 
-func (w *World) update() (float64, float64) {
+func (w *World) update(worldBorder bool) (float64, float64) {
 	next := []point{}
 	currAlive := 0
 	for x := 0; x < w.width; x++ {
@@ -168,17 +168,29 @@ func (w *World) update() (float64, float64) {
 					y: y + p.y,
 				}
 
-				// Check out of bounds
-				if curr.x < 0 || curr.x >= w.width {
-					continue
-				}
-				if curr.y < 0 || curr.y >= w.height {
-					continue
+				// A world with or without borders
+				switch worldBorder {
+				case true:
+					if curr.x < 0 || curr.y < 0 || curr.x >= w.width || curr.y >= w.height {
+						continue
+					}
+				default:
+					if curr.x < 0 {
+						curr.x = w.width - 1
+					}
+					if curr.y < 0 {
+						curr.y = w.height - 1
+					}
+					if curr.x >= w.width {
+						curr.x = 0
+					}
+					if curr.y >= w.height {
+						curr.y = 0
+					}
 				}
 
 				curr.alive = w.mtx[curr.x][curr.y].alive
 				neigh = append(neigh, curr)
-
 			}
 			dead := 0
 			alive := 0
