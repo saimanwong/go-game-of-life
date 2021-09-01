@@ -13,7 +13,7 @@ import (
 var (
 	WIDTH       int  = 160
 	HEIGHT      int  = 120
-	startTPS    int  = 10
+	startTPS    int  = 30
 	globalTick  int  = 0
 	worldBorder bool = false
 )
