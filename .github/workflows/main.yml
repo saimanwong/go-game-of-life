@@ -1,6 +1,6 @@
 ---
 
-name: Build, push and deploy image to Heroku and GCP
+name: Build, push and deploy image to GCP
 
 on:
   push:
@@ -32,28 +32,6 @@ jobs:
 
       - name: Push image with latest tag
         run: docker tag ${{ env.DOCKER_IMAGE }}:${{ steps.get_ref.outputs.REF }} ${{ env.DOCKER_IMAGE }}:latest && docker push ${{ env.DOCKER_IMAGE }}:latest
-
-  deploy-heroku:
-    runs-on: ubuntu-latest
-    needs: build-push-image-docker-hub
-    steps:
-      - name: Get ref
-        id: get_ref
-        run: echo ::set-output name=REF::${GITHUB_REF##*/}
-
-      - name: Checkout repo
-        uses: actions/checkout@v2
-
-      - name: Install Heroku CLI
-        run: curl https://cli-assets.heroku.com/install-ubuntu.sh | sh
-
-      - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          heroku_email: ${{ secrets.HEROKU_EMAIL }}
-          usedocker: true
 
   push-image-gcp:
     runs-on: ubuntu-latest
